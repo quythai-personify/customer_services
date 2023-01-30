@@ -1,0 +1,4 @@
+FROM amazoncorretto:17
+MAINTAINER quy.thai@personifyinc.com
+COPY target/eureka-server-1.0-SNAPSHOT.jar eureka-server-1.0.jar
+ENTRYPOINT ["java","-jar","/eureka-server-1.0.jar"]

@@ -6,8 +6,8 @@ spring:
     name: customer
   datasource:
     password: password
-    url: jdbc:postgresql://localhost:5433/customer
-    username: amigoscode
+    url: jdbc:postgresql://host.docker.internal:5432/customer
+    username: quy
   jpa:
     hibernate:
       ddl-auto: create-drop
