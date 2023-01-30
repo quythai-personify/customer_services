@@ -1,0 +1,11 @@
+cd D:\BE\env\kafka_2.13-3.3.1
+
+# Start the ZooKeeper service
+$ bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+
+# Start the Kafka broker service
+$ bin\windows\kafka-server-start.bat config/server.properties
+
+# Start docker
+cd D:\BE\tut\my-app
+docker compose up -d
