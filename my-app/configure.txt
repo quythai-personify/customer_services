@@ -12,5 +12,18 @@ docker compose up -d
 
 # If postgres is installed => Change the default port to make it work
 
+# Build jar files
 mvn clean package spring-boot:repackage
-mvn package spring-boot:repackage 
+mvn package spring-boot:repackage
+
+# Build docker image and push to docker repository
+cd customer_services
+docker login
+
+docker build -t bigcool/customer-service customer
+docker build -t bigcool/fraud-service fraud
+docker build -t bigcool/eureka-server eureka-server
+
+docker push bigcool/customer-service
+docker push bigcool/fraud-service
+docker push bigcool/eureka-server
