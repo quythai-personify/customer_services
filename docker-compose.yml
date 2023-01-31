@@ -28,11 +28,8 @@ services:
       - postgres
     restart: unless-stopped
   eureka-server:
-    image: eureka-server:latest
+    image: bigcool/eureka-server:latest
     container_name: eureka-server
-    build:
-      context: my-app/eureka-server
-      dockerfile: Dockerfile
     ports:
       - "8761:8761"
     environment:
@@ -40,30 +37,39 @@ services:
     networks:
       - spring
   fraud:
-    image: fraud:latest
+    image: bigcool/fraud-service:latest
     container_name: fraud
-    build:
-      context: my-app/eureka-server
-      dockerfile: Dockerfile
     ports:
       - "8081:8081"
+    links:
+      - eureka-server
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/fraud
+      - SPRING_DATASOURCE_USERNAME=quy
+      - SPRING_DATASOURCE_PASSWORD=password
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     networks:
       - spring
       - postgres
     depends_on:
       - postgres
   customer:
-    image: customer:latest
+    image: bigcool/customer-service:latest
     container_name: customer
     build:
       context: my-app/customer
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    links:
+      - eureka-server
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customer
+      - SPRING_DATASOURCE_USERNAME=quy
+      - SPRING_DATASOURCE_PASSWORD=password
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     networks:
       - spring
       - postgres

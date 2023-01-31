@@ -1,12 +1,13 @@
 server:
   port:8080
+  error.include-message:always
 
 spring:
   application:
     name: customer
   datasource:
     password: password
-    url: jdbc:postgresql://host.docker.internal:5432/customer
+    url: jdbc:postgresql://localhost:5432/customer
     username: quy
   jpa:
     hibernate:

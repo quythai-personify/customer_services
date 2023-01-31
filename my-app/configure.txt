@@ -11,3 +11,6 @@ cd D:\BE\tut\my-app
 docker compose up -d
 
 # If postgres is installed => Change the default port to make it work
+
+mvn clean package spring-boot:repackage
+mvn package spring-boot:repackage 

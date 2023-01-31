@@ -4,6 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+my-app/customer/target/
+my-app/fraud/target/
+
+
 ### STS ###
 .apt_generated
 .classpath
