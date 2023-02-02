@@ -27,3 +27,10 @@ docker build -t bigcool/eureka-server eureka-server
 docker push bigcool/customer-service
 docker push bigcool/fraud-service
 docker push bigcool/eureka-server
+
+# Access and create DB
+ssh -i "ev-team.pem" ubuntu@ec2-52-54-217-9.compute-1.amazonaws.com
+https://dev-ev2.personifyinc.com/
+docker exec -it postgres_prod bash
+psql -U quy -W postgres
+CREATE DATABASE fraud;
