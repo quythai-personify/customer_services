@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 
 @Configuration
 public class KafkaConsumerConfig {
-    @Value("localhost:9092")
+    @Value("localhost:29092")
     private String bootstrapServers;
 
     public Map<String, Object> consumerConfig(){

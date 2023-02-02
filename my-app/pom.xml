@@ -16,7 +16,7 @@
     <module>customer</module>
     <module>fraud</module>
     <module>eureka-server</module>
-    <module>messaging</module>
+    <module>kafka-producer</module>
   </modules>
 
   <properties>

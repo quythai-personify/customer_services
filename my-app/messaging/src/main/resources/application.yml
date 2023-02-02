@@ -1,7 +1,0 @@
-server:
-  port: 8085
-spring:
-  application:
-    name: kafkamessage
-  kafka:
-    bootstrap-servers: localhost:9092

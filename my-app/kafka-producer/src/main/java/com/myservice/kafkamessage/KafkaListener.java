@@ -13,9 +13,9 @@ public class KafkaListener {
             topics = "sample",
             groupId = "groupId"
     )
-    void listener(String data){
+    void listener(@Payload(required = false) String data){
         if (data != null){
-            System.out.println("Listener received: " + data + " woo hoo");
+            System.out.println("Listener received: " + data);
         }
         else {
             System.out.println("Receive null message");

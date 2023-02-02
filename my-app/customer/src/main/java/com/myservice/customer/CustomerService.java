@@ -1,7 +1,11 @@
 package com.myservice.customer;
 
 import lombok.AllArgsConstructor;
+import net.minidev.json.JSONObject;
 import org.springframework.data.domain.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,7 +38,6 @@ public class CustomerService {
         if (exists){
             throw new IllegalStateException("customer is already exists");
         }
-        customerRepository.saveAndFlush(customer);
 
         // todo: check if fraudster
         FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
@@ -48,6 +51,14 @@ public class CustomerService {
 
         customerRepository.save(customer);
         // todo: send notification
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        JSONObject personJsonObject = new JSONObject();
+        personJsonObject.put("request", "register new user with id " + customer.getId());
+        HttpEntity<String> httpRequest =
+                new HttpEntity<String>(personJsonObject.toString(), headers);
+
+        restTemplate.postForObject("http://localhost:8085/api/v1/messages", httpRequest, String.class);
     }
 
     public Optional<Customer> getCustomerById(Integer id) {
