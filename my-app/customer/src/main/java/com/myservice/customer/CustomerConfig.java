@@ -17,29 +17,27 @@ public class CustomerConfig {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
+
     @Bean
     CommandLineRunner commandLineRunner(CustomerRepository repository){
         return args -> {
-            Customer quy = new Customer(
-                    "Quy",
-                    "Thai",
-                    "quy.thai@personifyinc.com"
-            );
+            Customer quy = Customer.builder()
+                    .firstName("Quy")
+                    .lastName("Thai")
+                    .email("quy.thai@personifyinc.com")
+                    .build();
+            Customer toan = Customer.builder()
+                    .firstName("Toan")
+                    .lastName("Nguyen")
+                    .email("toan.nguyen@personifyinc.com")
+                    .build();
+            Customer thinh = Customer.builder()
+                    .firstName("Thinh")
+                    .lastName("Nguyen")
+                    .email("thinh.nguyen@personifyinc.com")
+                    .build();
 
-            Customer toan = new Customer(
-                    "Toan",
-                    "Nguyen",
-                    "toan.nguyen@personifyinc.com"
-            );
-
-            Customer thinh = new Customer(
-                    "Thinh",
-                    "Nguyen",
-                    "thinh.nguyen@personifyinc.com"
-            );
-
-            repository.saveAll(Arrays.asList(quy,toan,thinh)
-            );
+            repository.saveAll(Arrays.asList(quy,toan,thinh));
         };
     }
 }

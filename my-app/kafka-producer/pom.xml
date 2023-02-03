@@ -15,7 +15,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>com.myservice.messaging.KafkaApplication</start-class>
+        <start-class>com.myservice.kafkamessage.KafkaApplication</start-class>
         <java.version>17</java.version>
     </properties>
 
@@ -53,7 +53,7 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.boot.maven.plugin.version}</version>
                     <configuration>
-                        <mainClass>com.myservice.messaging.KafkaApplication</mainClass>
+                        <mainClass>com.myservice.kafkamessage.KafkaApplication</mainClass>
                         <layout>JAR</layout>
                     </configuration>
                     <executions>

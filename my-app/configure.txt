@@ -34,3 +34,12 @@ https://dev-ev2.personifyinc.com/
 docker exec -it postgres_prod bash
 psql -U quy -W postgres
 CREATE DATABASE fraud;
+
+# Authentication
+Change the diagram to indicate it is 3rd library
+
+# POST/GET
+SQL injection avoid => not accept any special
+
+# PUT
+Put the request into the body of API

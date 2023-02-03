@@ -5,9 +5,11 @@ import net.minidev.json.JSONObject;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -38,6 +40,7 @@ public class CustomerService {
         if (exists){
             throw new IllegalStateException("customer is already exists");
         }
+        customerRepository.save(customer);
 
         // todo: check if fraudster
         FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
@@ -48,17 +51,19 @@ public class CustomerService {
         if (fraudCheckResponse != null && fraudCheckResponse.isFraudster()){
             throw new IllegalStateException("fraudster");
         }
+        customerRepository.flush();
 
-        customerRepository.save(customer);
         // todo: send notification
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         JSONObject personJsonObject = new JSONObject();
         personJsonObject.put("request", "register new user with id " + customer.getId());
-        HttpEntity<String> httpRequest =
-                new HttpEntity<String>(personJsonObject.toString(), headers);
 
-        restTemplate.postForObject("http://localhost:8085/api/v1/messages", httpRequest, String.class);
+        HttpEntity<?> entity = new HttpEntity<>(personJsonObject.toString(), headers);
+        restTemplate.postForObject(
+                "http://KAFKA-PRODUCER/api/v1/messages",
+                entity,
+                String.class);
     }
 
     public Optional<Customer> getCustomerById(Integer id) {
