@@ -35,6 +35,12 @@ docker exec -it postgres_prod bash
 psql -U quy -W postgres
 CREATE DATABASE fraud;
 
+# Auth0
+https://auth0.com/docs/quickstart/backend/java-spring-security5/01-authorization#configure-the-resource-server
+
+// just ref
+https://auth0.com/blog/spring-boot-authorization-tutorial-secure-an-api-java/
+
 # Authentication
 Change the diagram to indicate it is 3rd library
 
@@ -43,3 +49,4 @@ SQL injection avoid => not accept any special
 
 # PUT
 Put the request into the body of API
+

@@ -14,11 +14,12 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CustomerController {
     private final CustomerService customerService;
+
     @GetMapping(path = "{id}")
     public Optional<Customer> getCustomer(@PathVariable("id") Integer id){
         return customerService.getCustomerById(id);
     }
-    @GetMapping
+    @GetMapping(path = "all")
     public List<Customer> getCustomers(
             @RequestParam(required = false) Integer pageCount){
         return customerService.getCustomers(pageCount);
