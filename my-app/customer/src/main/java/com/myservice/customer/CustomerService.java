@@ -61,7 +61,7 @@ public class CustomerService {
 
         HttpEntity<?> entity = new HttpEntity<>(personJsonObject.toString(), headers);
         restTemplate.postForObject(
-                "http://KAFKA-PRODUCER/api/v1/messages",
+                "http://KAFKA-PRODUCER/api/v1/messages/publishMessage",
                 entity,
                 String.class);
     }

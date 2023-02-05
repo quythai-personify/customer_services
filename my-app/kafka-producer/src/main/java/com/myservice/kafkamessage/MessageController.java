@@ -16,7 +16,8 @@ public class MessageController {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    @PostMapping
+    @PostMapping(
+            value = "/publishMessage", consumes = "application/json", produces = "application/json")
     public void publish(@RequestBody MessageRequest request){
         kafkaTemplate.send("sample", request.message());
     }
