@@ -1,6 +1,5 @@
 server:
   port:8080
-  error.include-message:always
 
 spring:
   application:
@@ -26,8 +25,6 @@ spring:
 auth0:
   audience: https://customer-api.example.com
   domain: dev-ch2znmbxq0e685qy.us.auth0.com
-  clientId: drsnzQWs2ms6J3NIceRL3jm485C5UxZJ
-  clientSecret: 3HzBrZ3_sG7GITB_hKf2KX1njFk-facqNZgLdFp4xCOpBWREftwLXMD1wLWinOwm
 
 eureka:
   client:

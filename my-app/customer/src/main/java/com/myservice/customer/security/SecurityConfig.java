@@ -26,11 +26,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers(HttpMethod.GET,"/api/v1/customers").permitAll()
-                .mvcMatchers(HttpMethod.GET, "api/v1/customers/*").authenticated()
-                .mvcMatchers(HttpMethod.POST, "api/v1/customers").hasAuthority("SCOPE_register:customer")
-                .mvcMatchers(HttpMethod.PUT, "api/v1/customers/*").hasAuthority("SCOPE_update:customer")
-                .mvcMatchers(HttpMethod.DELETE, "api/v1/customers/*").hasAuthority("SCOPE_delete:customer")
+                .antMatchers("/api/v1/customers/").permitAll()
+                .anyRequest().authenticated()
+//                .mvcMatchers("/api/v1/customers/*").authenticated()
+//                .mvcMatchers(HttpMethod.GET, "api/v1/customers/*").authenticated()
+//                .mvcMatchers(HttpMethod.POST, "api/v1/customers").hasAuthority("SCOPE_register:customer")
+//                .mvcMatchers(HttpMethod.PUT, "api/v1/customers/*").hasAuthority("SCOPE_update:customer")
+//                .mvcMatchers(HttpMethod.DELETE, "api/v1/customers/*").hasAuthority("SCOPE_delete:customer")
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
         return http.build();

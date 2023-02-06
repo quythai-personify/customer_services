@@ -15,6 +15,10 @@ import java.util.Optional;
 public class CustomerController {
     private final CustomerService customerService;
 
+    @GetMapping(path = "/")
+    public String getCustomer(){
+        return "Welcome to customer service";
+    }
     @GetMapping(path = "{id}")
     public Optional<Customer> getCustomer(@PathVariable("id") Integer id){
         return customerService.getCustomerById(id);
