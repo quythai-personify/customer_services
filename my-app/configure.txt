@@ -46,6 +46,7 @@ Change the diagram to indicate it is 3rd library
 
 # POST/GET
 SQL injection avoid => not accept any special
+https://www.baeldung.com/sql-injection
 
 # PUT
 Put the request into the body of API

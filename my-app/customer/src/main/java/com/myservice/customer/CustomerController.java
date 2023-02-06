@@ -2,7 +2,6 @@ package com.myservice.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,9 +43,12 @@ public class CustomerController {
     @PutMapping(path = "{id}")
     public void updateCustomerByParam(
             @PathVariable("id") Integer id,
-            @RequestParam(required = false) String firstName,
-            @RequestParam(required = false) String lastName,
-            @RequestParam(required = false) String email){
-        customerService.updateCustomerByParam(id, firstName, lastName, email);
+            @RequestBody Customer customerDetail) {
+        customerService.updateCustomerByParam(
+                id,
+                customerDetail.getFirstName(),
+                customerDetail.getLastName(),
+                customerDetail.getEmail()
+        );
     }
 }
