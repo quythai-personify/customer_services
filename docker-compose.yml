@@ -55,18 +55,8 @@ services:
     networks:
       - kafka
 
-#  eureka-server:
-#    image: bigcool/eureka-server:latest
-#    container_name: eureka-server
-#    ports:
-#      - "8761:8761"
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#    networks:
-#      - spring
-
   eureka-server:
-    image: eureka-server
+    image: bigcool/eureka-server:auth0
     container_name: eureka-server
     build:
       context: my-app/eureka-server
@@ -79,8 +69,7 @@ services:
       - spring
 
   fraud:
-#    image: bigcool/fraud-service:latest
-    image: fraud-service
+    image: bigcool/fraud-service:auth0
     container_name: fraud
     build:
       context: my-app/fraud
@@ -101,8 +90,7 @@ services:
       - eureka-server
 
   customer:
-#    image: bigcool/customer-service:latest
-    image: customer
+    image: bigcool/customer-service:auth0
     container_name: customer
     build:
       context: my-app/customer
@@ -120,12 +108,12 @@ services:
       - postgres
     depends_on:
       - postgres
-      - fraud
+      - eureka-server
       - kafka-producer
+      - fraud
 
   kafka-producer:
-#    image: bigcool/kafka-producer:latest
-    image: kafka-producer
+    image: bigcool/kafka-producer:auth0
     container_name: kafka-producer
     build:
       context: my-app/kafka-producer
