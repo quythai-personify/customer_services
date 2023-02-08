@@ -14,6 +14,7 @@ import java.time.Duration;
 @Configuration
 public class FraudConfig {
     @Bean
+    @LoadBalanced
     public HttpClient httpClient(){
         return HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_1_1)

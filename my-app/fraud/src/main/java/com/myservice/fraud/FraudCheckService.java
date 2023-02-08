@@ -31,7 +31,8 @@ public class FraudCheckService {
         );
 
         String serverId = "KAFKA-PRODUCER";
-        String homePageUrl = eurekaClient.getNextServerFromEureka(serverId, false).getHomePageUrl();
+//        String homePageUrl = eurekaClient.getNextServerFromEureka(serverId, false).getHomePageUrl();
+        String homePageUrl = "http://" + serverId + "/";
         JSONObject payload = new JSONObject();
         payload.put("request", "fraud check request for customer " + customerId);
         HttpRequest request = HttpRequest.newBuilder()
