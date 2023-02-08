@@ -1,7 +1,7 @@
 Customer service
 ===============
 
-The project for learning Java Spring Boot with module
+The project for learning Java Spring Boot
 
 ## Overview:
 - customer: manage customer database via RestAPi
