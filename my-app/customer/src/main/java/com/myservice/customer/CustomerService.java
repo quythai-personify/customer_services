@@ -56,10 +56,10 @@ public class CustomerService {
         // todo: send notification
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        JSONObject personJsonObject = new JSONObject();
-        personJsonObject.put("request", "register new user with id " + customer.getId());
+        JSONObject messageJsonObject = new JSONObject();
+        messageJsonObject.put("request", "register new user with id " + customer.getId());
 
-        HttpEntity<?> entity = new HttpEntity<>(personJsonObject.toString(), headers);
+        HttpEntity<?> entity = new HttpEntity<>(messageJsonObject.toString(), headers);
         restTemplate.postForObject(
                 "http://KAFKA-PRODUCER/api/v1/messages/publishMessage",
                 entity,

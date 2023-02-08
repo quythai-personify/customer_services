@@ -36,6 +36,8 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 22181:2181
+    mem_limit: 128m
+    mem_reservation: 128m
     networks:
       - kafka
 
@@ -45,6 +47,8 @@ services:
       - zookeeper
     ports:
       - 29092:29092
+    mem_limit: 256m
+    mem_reservation: 128m
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -58,11 +62,13 @@ services:
   eureka-server:
     image: bigcool/eureka-server:auth0
     container_name: eureka-server
-    build:
-      context: my-app/eureka-server
-      dockerfile: Dockerfile
+#    build:
+#      context: my-app/eureka-server
+#      dockerfile: Dockerfile
     ports:
       - "8761:8761"
+    mem_limit: 256m
+    mem_reservation: 128m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     networks:
@@ -70,12 +76,14 @@ services:
 
   fraud:
     image: bigcool/fraud-service:auth0
-    container_name: fraud
-    build:
-      context: my-app/fraud
-      dockerfile: Dockerfile
+#    image: my-app/fraud
+#    build:
+#      context: my-app/fraud
+#      dockerfile: Dockerfile
     ports:
-      - "8081:8081"
+      - "8081-8084:8081"
+    mem_limit: 128m
+    mem_reservation: 128m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/fraud
@@ -88,15 +96,18 @@ services:
     depends_on:
       - postgres
       - eureka-server
+      - kafka-producer
 
   customer:
     image: bigcool/customer-service:auth0
     container_name: customer
-    build:
-      context: my-app/customer
-      dockerfile: Dockerfile
+#    build:
+#      context: my-app/customer
+#      dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    mem_limit: 256m
+    mem_reservation: 128m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customer
@@ -115,11 +126,13 @@ services:
   kafka-producer:
     image: bigcool/kafka-producer:auth0
     container_name: kafka-producer
-    build:
-      context: my-app/kafka-producer
-      dockerfile: Dockerfile
+#    build:
+#      context: my-app/kafka-producer
+#      dockerfile: Dockerfile
     ports:
       - "8085:8085"
+    mem_limit: 128m
+    mem_reservation: 128m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka

@@ -20,15 +20,17 @@ mvn package spring-boot:repackage
 cd customer_services
 docker login
 
-docker build -t bigcool/customer-service customer
-docker build -t bigcool/fraud-service fraud
-docker build -t bigcool/eureka-server eureka-server
-docker build -t bigcool/kafka-producer kafka-producer
+docker build -t bigcool/customer-service:auth0 customer
+docker build -t bigcool/fraud-service:auth0 fraud
+docker build -t bigcool/eureka-server:auth0 eureka-server
+docker build -t bigcool/kafka-producer:auth0 kafka-producer
 
-docker push bigcool/customer-service
-docker push bigcool/fraud-service
-docker push bigcool/eureka-server
-docker push bigcool/kafka-producer
+docker push bigcool/customer-service:auth0
+docker push bigcool/fraud-service:auth0
+docker push bigcool/eureka-server:auth0
+docker push bigcool/kafka-producer:auth0
+
+docker compose up -d --scale fraud=2
 
 # Access and create DB
 ssh -i "ev-team.pem" ubuntu@ec2-52-54-217-9.compute-1.amazonaws.com
