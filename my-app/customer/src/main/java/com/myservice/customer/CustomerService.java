@@ -70,15 +70,18 @@ public class CustomerService {
         return customerRepository.findById(id);
     }
 
-    public List<Customer> getCustomers(Integer pageCount) {
-        return customerRepository.findAll();
-    }
-
-//    public Page<Customer> getCustomers(Integer pageCount) {
-//        Page<Customer> page = customerRepository.findAll(
-//                PageRequest.of(0, pageCount, Sort.by(Sort.Direction.ASC, "firstName")));
-//        return page;
+//    public List<Customer> getCustomers(Integer pageCount) {
+//        return customerRepository.findAll();
 //    }
+
+    public List<Customer> getCustomers(Integer currentPageNumber, Integer itemCountPerPage) {
+        Page<Customer> page = customerRepository.findAll(
+                PageRequest.of(currentPageNumber, itemCountPerPage, Sort.by(Sort.Direction.ASC, "id")));
+        if (page != null){
+            return page.getContent();
+        }
+        return null;
+    }
 
     public void deleteStudent(Integer id) {
         boolean exists = customerRepository.existsById(id);

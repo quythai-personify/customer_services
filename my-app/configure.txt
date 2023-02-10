@@ -1,3 +1,6 @@
+Integration test, unit test
+
+
 cd D:\BE\env\kafka_2.13-3.3.1
 
 # Start the ZooKeeper service
@@ -51,6 +54,7 @@ Change the diagram to indicate it is 3rd library
 # POST/GET
 SQL injection avoid => not accept any special
 https://www.baeldung.com/sql-injection
+https://sec.okta.com/articles/2020/12/sql-injection-java-practices-avoid
 
 # PUT
 Put the request into the body of API
