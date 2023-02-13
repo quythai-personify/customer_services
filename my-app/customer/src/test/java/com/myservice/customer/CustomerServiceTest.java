@@ -5,12 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -120,6 +122,33 @@ class CustomerServiceTest {
     }
 
     @Test
-    void updateCustomerByParam() {
+    void canUpdateCustomerByParam() {
+        //given
+        Integer id = 1;
+        String firstName = "Quy";
+        String lastName = "Thai";
+        String email = "quy.thai@gmail.com";
+
+        Customer customer = Customer.builder()
+                .id(id)
+                .firstName(firstName)
+                .lastName(lastName)
+                .email(email)
+                .build();
+
+        String newFirstName = "Toan";
+        String newLastName = "Nguyen";
+        String newEmail = "toan.nguyen@gmail.com";
+
+        given(customerRepository.existsById(id)).willReturn(true);
+        given(customerRepository.findById(id)).willReturn(Optional.of(customer));
+        // when
+        underTest.updateCustomerByParam(id, newFirstName, newLastName, newEmail);
+        // then
+        Optional<Customer> optionalCustomer = underTest.getCustomerById(id);
+        assertEquals(optionalCustomer.get().getId(), id);
+        assertEquals(optionalCustomer.get().getFirstName(), newFirstName);
+        assertEquals(optionalCustomer.get().getLastName(), newLastName);
+        assertEquals(optionalCustomer.get().getEmail(), newEmail);
     }
 }
